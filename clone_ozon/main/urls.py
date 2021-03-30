@@ -1,8 +1,7 @@
 from django.urls import path, include
-
-from . import views
+from .views import index, about
+from django.contrib.flatpages import views
 
 urlpatterns = [
-    path('', views.home_page),
-    path('', include('django.contrib.flatpages.urls')),
+    path('', index),
 ]

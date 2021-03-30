@@ -1,0 +1,17 @@
+{% extends 'main/template.html'%}
+{% block content %}
+
+{{flatpage.content}}
+
+<hr>
+
+{% load flatpages %}
+{% get_flatpages as flatpages %}
+<ul>
+    <li><a href="/">main</a></li>
+
+    {% for page in flatpages %}
+        <li><a href="{{ page.url }}">{{ page.title }}</a></li>
+    {% endfor %}
+</ul>
+{% endblock %}
