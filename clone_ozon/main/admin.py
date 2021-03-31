@@ -10,6 +10,8 @@ from django.contrib.flatpages.models import FlatPage
 from django.utils.translation import gettext_lazy as _
 from ckeditor.widgets import CKEditorWidget
 
+from .models import Category, Tag, Seller, Product
+
 
 class FlatPageAdminForm(forms.ModelForm):
     title = forms.CharField(label='Заголовок', max_length=200)
@@ -17,7 +19,6 @@ class FlatPageAdminForm(forms.ModelForm):
 
 
 class FlatPageAdmin(FlatPageAdmin):
-
     form = FlatPageAdminForm
 
     fieldsets = (
@@ -35,3 +36,25 @@ class FlatPageAdmin(FlatPageAdmin):
 
 admin.site.unregister(FlatPage)
 admin.site.register(FlatPage, FlatPageAdmin)
+
+
+class CategoryAdmin(admin.ModelAdmin):
+    list_display = ('id', 'name')
+
+
+class TagAdmin(admin.ModelAdmin):
+    list_display = ('id', 'name')
+
+
+class SellerAdmin(admin.ModelAdmin):
+    list_display = ('id', 'name')
+
+
+class ProductAdmin(admin.ModelAdmin):
+    list_display = ('id', 'name')
+
+
+admin.site.register(Category, CategoryAdmin)
+admin.site.register(Tag, TagAdmin)
+admin.site.register(Seller, SellerAdmin)
+admin.site.register(Product, ProductAdmin)
