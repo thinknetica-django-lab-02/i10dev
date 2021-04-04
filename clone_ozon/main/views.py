@@ -1,7 +1,9 @@
 from django.shortcuts import render
-from .models import Category
+from .queries import test
+
 
 def index(request):
+    test()
     return render(request, 'main/main.html', {
         'title': 'Main'
     })
