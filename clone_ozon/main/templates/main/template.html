@@ -11,11 +11,7 @@
 </head>
 <body>
 
-{% if turn_on_block %}
-        turn_on_block имеет значение True
-{% elif not turn_on_block%}
-        turn_on_block имеет значение False
-{% endif %}
+{% include 'general/header.html' with name=user%}
 
 {% block head %}
 {% endblock head%}
