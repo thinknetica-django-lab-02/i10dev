@@ -1,15 +1,15 @@
 from django.shortcuts import render
-from .queries import test
+# from .queries import test
 
 
 def index(request):
-    test()
+    # test()
     return render(request, 'main/main.html', {
         'title': 'Main'
     })
 
 
 def about(request):
-    return render(request, 'main/about.html', {
+    return render(request, 'flatpages/default.html', {
         'title': 'About'
     })

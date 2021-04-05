@@ -28,25 +28,25 @@ def setInitVal(category, tag, seller, product):
 #     p = Product.objects.create(name='acer nitro 5')
 
 
-setInitVal('laptop',
-           'notebook',
-           'acer corp',
-           'acer nitro 5')
-setInitVal('laptop',
-           'notebook',
-           'asus rog',
-           'asus corp')
+# setInitVal('laptop',
+#            'notebook',
+#            'acer corp',
+#            'acer nitro 5')
+# setInitVal('laptop',
+#            'notebook',
+#            'asus rog',
+#            'asus corp')
 
-f = Product.objects.filter(name='acer nitro 5')
+# f = Product.objects.filter(name='acer nitro 5')
 
 
-def test():
-    setInitVal('laptop',
-               'notebook',
-               'acer nitro 5',
-               'acer corp')
-    setInitVal('laptop',
-               'notebook',
-               'asus corp',
-               'acer rog')
-    print(f)
+# def test():
+#     setInitVal('laptop',
+#                'notebook',
+#                'acer nitro 5',
+#                'acer corp')
+#     setInitVal('laptop',
+#                'notebook',
+#                'asus corp',
+#                'acer rog')
+#     print(f)
