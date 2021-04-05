@@ -1,14 +1,11 @@
 {% extends 'main/template.html'%}
+
+{%block head%}
+{%endblock head%}
+
 {% block content %}
-
-{{flatpage.content}}
-
-
-<hr>
-
 {% load flatpages %}
 {% get_flatpages as flatpages %}
-{{flatpage}}
 <ul>
     <li><a href="/">main</a></li>
 

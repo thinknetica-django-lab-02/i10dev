@@ -5,11 +5,14 @@ from django.shortcuts import render
 def index(request):
     # test()
     return render(request, 'main/main.html', {
-        'title': 'Main'
+        'title': 'Main',
+        'user': request.user,
+        'turn_on_block': True
     })
 
 
 def about(request):
     return render(request, 'flatpages/default.html', {
-        'title': 'About'
+        'title': 'About',
+        'turn_on_block': False
     })

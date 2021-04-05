@@ -11,7 +11,17 @@
 </head>
 <body>
 
+{% if turn_on_block %}
+        turn_on_block имеет значение True
+{% elif not turn_on_block%}
+        turn_on_block имеет значение False
+{% endif %}
+
+{% block head %}
+{% endblock head%}
+
 {% block content %}
+{{turn_on_block|default:'i cant stop'}}
 {% endblock content %}
 
 <!--<div class="container">-->
