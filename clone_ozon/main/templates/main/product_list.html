@@ -1,0 +1,16 @@
+{% extends 'main/template.html'%}
+
+
+{% block content %}
+<h2>Goods</h2>
+<ul>
+        {% for publisher in object_list %}
+        <li>
+            <a href="{{ publisher.pk }}">
+                {{ publisher.name }}
+            </a>    
+        </li>
+            
+        {% endfor %}
+    </ul>
+{% endblock content %}
