@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, DetailView
-from .models import Product, Seller
+from .models import Product, Seller, Tag
 
 
 def index(request):
@@ -20,20 +20,29 @@ def about(request):
 
 class ProductList(ListView):
     model = Product
-    template_name='main/product_list.html'
-    
-
-class ProductDetail(DetailView):
-    template_name='main/product_details.html'
-    model = Product
-    slug_url_kwarg='pk'
-    context_object_name='product'
+    paginate_by = 3
+    template_name = 'main/product_list.html'
 
     def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        print('--------------------')
-        print(context['product'])
-        print('--------------------')
-        # context["name"] = self.kwargs['name'] 
+        context = super(ProductList, self).get_context_data(**kwargs)
+        tag = self.request.GET.get('tag')
+        context['tag'] = tag
         return context
-    
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        tag = self.request.GET.get('tag')
+        if tag:
+            return queryset.filter(tag__name=tag)
+        return queryset
+
+
+class ProductDetail(DetailView):
+    template_name = 'main/product_details.html'
+    model = Product
+    slug_url_kwarg = 'pk'
+    context_object_name = 'product'
+
+    def get_context_data(self, **kwargs):
+        context = super(ProductDetail, self).get_context_data(**kwargs)
+        return context

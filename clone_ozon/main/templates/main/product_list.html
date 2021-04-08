@@ -3,14 +3,33 @@
 
 {% block content %}
 <h2>Goods</h2>
+{{tag}}
+<hr/>
 <ul>
-        {% for publisher in object_list %}
+        {% for val in object_list %}
         <li>
-            <a href="{{ publisher.pk }}">
-                {{ publisher.name }}
+            <a href="{{ val.pk }}">
+                {{ val.name }}  /
+                {% for localval in val.get_tags %}    
+                    <span>
+                        <a href='?tag={{ localval }}'>{{ localval }}</a>
+                    </span>
+                {% endfor %}
             </a>    
         </li>
             
         {% endfor %}
     </ul>
+
+
+
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            {% for x in paginator.page_range %}
+                <li class="page-item"><a class="page-link" href="?tag={{tag}}&page={{ x }}">{{ x }}</a></li>
+            {% endfor %}
+        </ul>
+      </nav>
+
+    
 {% endblock content %}

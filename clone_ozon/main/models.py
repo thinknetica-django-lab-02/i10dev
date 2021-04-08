@@ -1,6 +1,13 @@
 from django.db import models
 
 
+class Tag(models.Model):
+    name = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.name
+
+
 class Seller(models.Model):
     name = models.CharField(max_length=150, verbose_name='Имя поставщика')
     address = models.TextField(verbose_name='Адрес', blank=True)
@@ -25,16 +32,16 @@ class Product(models.Model):
         max_length=255, verbose_name='Описание товара', blank=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True)
     seller = models.ForeignKey(Seller, on_delete=models.CASCADE, null=True)
-  
-    def __str__(self):
-        return self.name
+    tag = models.ManyToManyField(Tag, help_text='добавте теги')
 
     def get_absolute_url(self):
         return reverse("product_detail", kwargs={"pk": self.pk})
 
-
-class Tag(models.Model):
-    name = models.CharField(max_length=255)
-
     def __str__(self):
         return self.name
+
+    def get_tags(self):
+        return self.tag.all()
+    
+        
+        # return {tag.name for tag in self.tags.all()}

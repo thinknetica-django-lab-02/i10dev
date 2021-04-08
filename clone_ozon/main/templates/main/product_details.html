@@ -2,6 +2,9 @@
 
 {% block content %}
     <h2>{{product.name}}</h2>
-    <p>{{product.description}}</p>  
-  
+    <p>{{product.description}}</p> 
+    {% for val in product.get_tags %}
+    <p>{{ val }}</p> 
+    {% endfor %}
+     
 {% endblock content %}
