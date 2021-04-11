@@ -1,0 +1,24 @@
+{% extends 'main/template.html'%}
+
+
+{% block header %}
+{% include 'general/header.html' %}
+{% endblock %}
+
+{% block content %}
+    <form>
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">{{form.firstname.label}}</label>
+            {{form.firstname}}
+        </div>
+        <div class="mb-3">
+            <label for="" class="form-label">{{form.lastname.label}}</label>
+            {{form.lastname}}
+        </div>
+        <div class="mb-3">
+            <label for="" class="form-label">{{form.email.label}}</label>
+            {{form.email}}
+        </div>
+    </form>
+
+{% endblock %}

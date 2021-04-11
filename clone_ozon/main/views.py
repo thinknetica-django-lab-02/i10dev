@@ -1,7 +1,8 @@
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, DetailView
 from .models import Product, Seller, Tag
-
+from django.views.generic.edit import FormView
+from .forms import ProfileForm
 
 def index(request):
     return render(request, 'main/main.html', {
@@ -46,3 +47,12 @@ class ProductDetail(DetailView):
     def get_context_data(self, **kwargs):
         context = super(ProductDetail, self).get_context_data(**kwargs)
         return context
+
+class UpdateView(FormView):
+    template_name = 'user.html'
+
+
+    def get(self, request, *args, **kwargs):
+        return render(request, 'main/user.html', {'form': ProfileForm()})
+
+    
