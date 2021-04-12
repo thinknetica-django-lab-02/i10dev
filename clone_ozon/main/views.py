@@ -1,8 +1,8 @@
 from django.shortcuts import render, get_object_or_404
-from django.views.generic import ListView, DetailView
-from .models import Product, Seller, Tag
+from django.views.generic import ListView, DetailView, UpdateView
+from .models import Product, Seller, Tag, Profile
 from django.views.generic.edit import FormView
-from .forms import ProfileForm
+from .forms import ProfileFormset
 
 def index(request):
     return render(request, 'main/main.html', {
@@ -48,11 +48,15 @@ class ProductDetail(DetailView):
         context = super(ProductDetail, self).get_context_data(**kwargs)
         return context
 
-class UpdateView(FormView):
+
+class ProfileView(FormView):
     template_name = 'user.html'
-
-
+    formset_class = ProfileFormset
+    fields = ['first_name', 'last_name', 'email']
+    
     def get(self, request, *args, **kwargs):
-        return render(request, 'main/user.html', {'form': ProfileForm()})
-
+        return render(request, 'main/user.html', { 'form': Profile() } )
+    
+    def get_object(self, queryset=None):
+        return self.request.user
     

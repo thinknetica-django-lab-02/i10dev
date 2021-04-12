@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from django.contrib.auth.models import User
 
 class Tag(models.Model):
     name = models.CharField(max_length=255)
@@ -48,8 +49,7 @@ class Product(models.Model):
 
 
 
-class Author(models.Model):
-    name = models.CharField(max_length=200)
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
 
-    def get_absolute_url(self):
-        return reverse('author-detail', kwargs={'pk': self.pk})
+    
