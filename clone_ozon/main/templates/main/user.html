@@ -7,20 +7,16 @@
 
 {% block content %}
 
-{{form}}
-    <form>
-        <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label">{{form.firstname.label}}</label>
-            {{form.firstname}}
-        </div>
-        <div class="mb-3">
-            <label for="" class="form-label">{{form.lastname.label}}</label>
-            {{form.lastname}}
-        </div>
-        <div class="mb-3">
-            <label for="" class="form-label">{{form.email.label}}</label>
-            {{form.email}}
-        </div>
-    </form>
-
+<h1>{{ user.username }}</h1>
+<form method="post">
+  <table>
+  {% csrf_token %}
+  {{ formset.management_form }}
+  {{ user_form.as_table  }}
+    {% for val in formset %}
+        {{ val }}
+    {% endfor %}
+  </table>
+  <button type="submit">Сохранить</button>
+</form>
 {% endblock %}

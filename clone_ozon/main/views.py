@@ -2,7 +2,13 @@ from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, DetailView, UpdateView
 from .models import Product, Seller, Tag, Profile
 from django.views.generic.edit import FormView
-from .forms import ProfileFormset
+from .forms import Profile
+
+from django.contrib.auth.decorators import login_required
+from django.db import transaction
+from django.contrib.auth.models import User
+from django.forms import inlineformset_factory
+from .forms import UserForm
 
 def index(request):
     return render(request, 'main/main.html', {
@@ -49,14 +55,27 @@ class ProductDetail(DetailView):
         return context
 
 
-class ProfileView(FormView):
-    template_name = 'user.html'
-    formset_class = ProfileFormset
-    fields = ['first_name', 'last_name', 'email']
+# class ProfileView(FormView):
+#     template_name = 'user.html'
+#     formset_class = ProfileFormSet
+#     fields = ['first_name', 'last_name', 'email']
     
-    def get(self, request, *args, **kwargs):
-        return render(request, 'main/user.html', { 'form': Profile() } )
+#     def get(self, request, *args, **kwargs):
+#         return render(request, 'main/user.html', { 'form': Profile() } )
     
-    def get_object(self, queryset=None):
-        return self.request.user
+#     def get_object(self, queryset=None):
+#         return self.request.user
     
+@login_required
+@transaction.atomic
+def update_profile(request):
+    User.profile = property(lambda u: Profile.objects.get_or_create(user=u)[0])
+    ProfileFormset = inlineformset_factory(User, Profile, fields='__all__', can_delete=False)
+    if request.method == 'POST':
+        user_form = UserForm(request.POST, instance=request.user)
+        formset = ProfileFormset(request.POST, instance=request.user)
+        
+    else:
+        user_form = UserForm(instance=request.user)
+        formset = ProfileFormset(instance=request.user.profile)
+    return render(request, 'main/user.html', locals())
